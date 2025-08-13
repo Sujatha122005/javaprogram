@@ -1,0 +1,75 @@
+import java.util.Arrays;
+import java.util.Objects;
+
+public class Student {
+
+	int id;
+	String name;
+	int[] mark = new int[5];
+	
+	Student(int id , String name, int[] mark){
+		
+		this.id = id;
+		this.name = name;
+		this.mark = mark;
+		
+	}
+	
+	@Override
+	public String toString() {
+		return "Student"+" "+"[id : "+ id +","+ " name : "+ name+","+" "+"marks : "+Arrays.toString(mark )+"]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(mark);
+		result = prime * result + Objects.hash(id, name);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		return id == other.id && Arrays.equals(mark, other.mark) && Objects.equals(name, other.name);
+	}
+	
+	
+}
+
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class StuDriver {
+
+	public static void main(String[] args) {
+		
+		ArrayList<Student> arr = new ArrayList<Student>();
+		arr.add(new Student(101,"XXX",new int[]{90,78,90,87,87}));
+		arr.add(new Student(102,"YYY",new int[]{99,68,60,80,86}));
+		arr.add(new Student(103,"ZZZ",new int[]{80,78,87,45,34}));
+		arr.add(new Student(104,"AAA",new int[]{99,77,56,83,82}));
+		arr.add(new Student(105,"BBB",new int[]{80,58,50,77,87}));
+		arr.add(new Student(106,"CCC",new int[]{60,58,40,87,57}));
+		
+		Collections.sort(arr,(s1,s2)->{
+			return Double.compare(Arrays.stream(s2.mark).average().getAsDouble(),
+					Arrays.stream(s1.mark).average().getAsDouble());
+		});
+		for(Student a : arr) {
+		System.out.println(a);
+		}
+	}
+	
+}
