@@ -1,0 +1,48 @@
+public class RemoveFragment {
+
+    public static void main(String[] args) {
+
+        String s1 = "Every morning I want to do exercise regularly";
+        String s2 = "Every morning I want to do meditation without fail";
+        String s3 = "It is important that I want to be happy always";
+
+        removedFragment(s1, s2, s3);
+    }
+
+    public static void removedFragment(String s1, String s2, String s3) {
+        String fragment = "I want to ";
+
+        System.out.println("Removed Fragment: \"" + fragment + "\"\n");
+
+        System.out.println("Modified Sentences:");
+        System.out.println(removePart(s1, fragment));
+        System.out.println(removePart(s2, fragment));
+        System.out.println(removePart(s3, fragment));
+    }
+
+
+    public static String removePart(String text, String part) {
+        String result = "";
+        for (int i = 0; i < text.length();) {
+            boolean match = true;
+            if (i + part.length() <= text.length()) {
+                for (int j = 0; j < part.length(); j++) {
+                    if (text.charAt(i + j) != part.charAt(j)) {
+                        match = false;
+                        break;
+                    }
+                }
+            } else {
+                match = false;
+            }
+
+            if (match) {
+                i += part.length(); 
+            } else {
+                result += text.charAt(i);
+                i++;
+            }
+        }
+        return result.trim();
+    }
+}
